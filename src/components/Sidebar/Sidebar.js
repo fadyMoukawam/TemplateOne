@@ -58,6 +58,7 @@ export default function Sidebar(props) {
                     [classes.itemIconRTL]: props.rtlActive
                   })}
                 >
+
                   {prop.icon}
                 </Icon>
               ) : (
