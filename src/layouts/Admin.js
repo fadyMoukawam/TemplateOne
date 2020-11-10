@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
@@ -40,32 +40,37 @@ const switchRoutes = (
 
 const useStyles = makeStyles(styles);
 
-export default function Admin({ ...rest }) {
+const Admin = ({ ...rest }) => {
   // styles
   const classes = useStyles();
   // ref to help us initialize PerfectScrollbar on windows devices
   const mainPanel = React.createRef();
   // states and functions
-  const [image, setImage] = React.useState(bgImage);
-  const [color, setColor] = React.useState("blue");
-  const [fixedClasses, setFixedClasses] = React.useState("dropdown show");
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const handleImageClick = image => {
-    setImage(image);
-  };
-  const handleColorClick = color => {
-    setColor(color);
-  };
-  const handleFixedClick = () => {
-    if (fixedClasses === "dropdown") {
-      setFixedClasses("dropdown show");
-    } else {
-      setFixedClasses("dropdown");
-    }
-  };
+  // const [image, setImage] = useState(bgImage);
+  // const [color, setColor] = useState("blue");
+  // const [fixedClasses, setFixedClasses] = useState("dropdown show");
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  // const handleImageClick = image => {
+  //   setImage(image);
+  // };
+
+  // const handleColorClick = color => {
+  //   setColor(color);
+  // };
+
+  // const handleFixedClick = () => {
+  //   if (fixedClasses === "dropdown") {
+  //     setFixedClasses("dropdown show");
+  //   } else {
+  //     setFixedClasses("dropdown");
+  //   }
+  // };
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
   const getRoute = () => {
     return window.location.pathname !== "/admin/maps";
   };
@@ -96,11 +101,8 @@ export default function Admin({ ...rest }) {
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
-        // TODO:
-        // logoText={"Creative Tim"}
         logoText={"My App"}
         logo={logo}
-        // TODO: backhground image
         image={image}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
@@ -121,7 +123,9 @@ export default function Admin({ ...rest }) {
         ) : (
             <div className={classes.map}>{switchRoutes}</div>
           )}
+
         {getRoute() ? <Footer /> : null}
+
         {/* TODO: remove fixed menu */}
         {/* <FixedPlugin
           handleImageClick={handleImageClick}
@@ -135,3 +139,5 @@ export default function Admin({ ...rest }) {
     </div>
   );
 }
+
+export default Admin;
